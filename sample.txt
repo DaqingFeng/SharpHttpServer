@@ -1,0 +1,21 @@
+            
+     Post["/api/user"] = SaveUser;
+             
+             
+     
+     private String SaveUser(HttpListenerRequest request)
+        { 
+            if (!request.HasEntityBody)
+            {
+                return null;
+            }
+            var bodyStr = "";
+            using (System.IO.Stream body = request.InputStream) // here we have data
+            {
+                using (System.IO.StreamReader reader = new System.IO.StreamReader(body, request.ContentEncoding))
+                {
+                    bodyStr = reader.ReadToEnd();
+                }
+            }
+            return String.Format("hello {0}", bodyStr);
+        }
